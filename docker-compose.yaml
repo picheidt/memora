@@ -1,0 +1,28 @@
+services:
+  app-memora:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app-memora
+    volumes:
+      - ./src:/var/www
+    networks:
+      - memora-network
+    command: sh -c "composer install && php-fpm"
+
+  nginx-memora:
+    image: nginx:alpine
+    container_name: nginx-memora
+    ports:
+      - "8000:80"
+    volumes:
+      - ./src/public/:/var/www/public
+      - ./nginx/:/etc/nginx/conf.d/
+    depends_on:
+      - app-memora
+    networks:
+      - memora-network
+
+networks:
+  memora-network:
+    driver: bridge
