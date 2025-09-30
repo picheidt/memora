@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: app-memora
     volumes:
-      - ./src:/var/www
+      - ./memora-api:/var/www
     networks:
       - memora-network
     command: sh -c "composer install && php-fpm"
@@ -16,7 +16,7 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./src/public/:/var/www/public
+      - ./memora-api/public/:/var/www/public
       - ./nginx/:/etc/nginx/conf.d/
     depends_on:
       - app-memora

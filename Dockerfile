@@ -8,6 +8,6 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 
-COPY src/ /var/www
+COPY memora-api/ /var/www
 
 EXPOSE 9000
